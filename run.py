@@ -1,40 +1,30 @@
 import glob
 
-from skimage.io import imread
-from matplotlib import pyplot
+from segmentation.extract_channel import red_channel, green_channel, blue_channel
 from segmentation.preprocess import *
-
+import matplotlib.pyplot as plt
+from skimage.io import imread
 
 __author__ = 'prithvin'
 
 
 def main():
-    directory_names = glob.glob('D:/New folder/personal/prithvi/2015/plankton/train/train/*')
-    images = glob.glob(directory_names[0] + '/*')
-    interested_image = images[0]
-    img = imread(interested_image, as_grey=True)
+    oimage_path = "D:/New_folder/personal/prithvi/2015/dr/train/train.001/10_left.jpeg"
+    original = imread(oimage_path)
 
-    pyplot.figure(1)
-    pyplot.subplot(321)
-    pyplot.imshow(img, cmap=pyplot.cm.get_cmap('gray'))
+    plt.subplot(221)
+    plt.imshow(original)
 
-    binary_image = binary(img)
-    pyplot.subplot(322)
-    pyplot.imshow(binary_image, cmap=pyplot.cm.get_cmap('gray'))
+    plt.subplot(222)
+    plt.imshow(red_channel(original))
 
-    dilated_image = dilate(binary_image)
-    pyplot.subplot(323)
-    pyplot.imshow(dilated_image, cmap=pyplot.cm.get_cmap('gray'))
+    plt.subplot(223)
+    plt.imshow(green_channel(original))
 
-    labeled_image = label(dilated_image)
-    pyplot.subplot(324)
-    labeled_image = labeled_image * binary_image
-    pyplot.imshow(labeled_image)
+    plt.subplot(224)
+    plt.imshow(blue_channel(original))
 
-    big_image = largest_region(labeled_image)
-    pyplot.subplot(325)
-    pyplot.imshow(big_image[0], cmap= pyplot.cm.get_cmap('gray'))
-    pyplot.show()
+    plt.show()
 
 if __name__ == '__main__':
     main()
