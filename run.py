@@ -1,9 +1,8 @@
-import glob
-
-from segmentation.extract_channel import red_channel, green_channel, blue_channel
-from segmentation.preprocess import *
 import matplotlib.pyplot as plt
 from skimage.io import imread
+
+from segmentation.extract_channel import red_channel, green_channel, blue_channel
+
 
 __author__ = 'prithvin'
 
